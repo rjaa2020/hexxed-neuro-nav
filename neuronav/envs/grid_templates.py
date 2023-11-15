@@ -1,11 +1,12 @@
 import neuronav.utils as utils
 import enum
-
+import random
 
 class GridSize(enum.Enum):
     micro = 7
     small = 11
     large = 17
+    hexxed = 14
 
 
 def four_rooms(grid_size: int):
@@ -334,6 +335,32 @@ def narrow(grid_size):
     return blocks, agent_start, objects
 
 
+def hexxed(grid_size):
+    agent_start = [grid_size - 2, random.randint(4, 9)]
+
+    portals = {}
+    for i in range(1,grid_size-1):
+        portal = {(i, 3): (i, 9),(i, 10): (i, 4)}
+        portals.update(portal)
+
+    rewards = {}
+    rwd_loc = random.randint(4, 9)
+    for i in reversed(range(1,6)):
+        reward = {(i, rwd_loc): i**2}
+        print(i)
+        rewards.update(reward)
+
+    
+    objects = {"rewards": rewards, "warps": portals}
+    
+    blocks = []
+    for j in range(1,3):
+        blocks.extend([[i, j] for i in range(1, grid_size - 1)])
+    for k in range(11,grid_size):
+        blocks.extend([[i, k] for i in range(1, grid_size - 1)])   
+    return blocks, agent_start, objects
+
+
 class GridTemplate(enum.Enum):
     empty = "empty"
     four_rooms = "four_rooms"
@@ -353,6 +380,8 @@ class GridTemplate(enum.Enum):
     obstacle = "obstacle"
     two_step = "two_step"
     narrow = "narrow"
+    hexxed = "hexxed"
+
 
 
 template_map = {
@@ -374,6 +403,7 @@ template_map = {
     GridTemplate.obstacle: obstacle,
     GridTemplate.two_step: two_step,
     GridTemplate.narrow: narrow,
+    GridTemplate.hexxed: hexxed,
 }
 
 

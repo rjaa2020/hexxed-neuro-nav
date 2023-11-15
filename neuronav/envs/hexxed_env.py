@@ -94,19 +94,16 @@ class GridEnv(Env):
             "doors": {},
             "warps": {},
         }
-        self.direction_map = np.array([[-1, 0], [0, 1], [1, 0], [0, -1], [0, 0]])
+        self.direction_map = np.array([[-1, 0], [-1, 1], [-1, -1], [0, 0]])
         self.done = False
         self.keys = 0
         self.free_spots = self.make_free_spots()
         self.set_obs_space(obs_type)
 
     def set_action_space(self):
-        if self.orientation_type == GridOrientation.variable:
-            self.action_space = spaces.Discrete(3 + self.use_noop + self.manual_collect)
-            self.orient_size = 4
-        elif self.orientation_type == GridOrientation.fixed:
+        if self.orientation_type == GridOrientation.fixed:
             self.orient_size = 1
-            self.action_space = spaces.Discrete(4 + self.use_noop + self.manual_collect)
+            self.action_space = spaces.Discrete(3 + self.use_noop + self.manual_collect)
         else:
             raise Exception("No valid GridOrientation provided.")
         self.state_size *= self.orient_size
@@ -508,15 +505,6 @@ class GridEnv(Env):
         x_offset = agent_pos[0] * block_size + agent_offset
         y_offset = agent_pos[1] * block_size + agent_offset
         if agent_dir == 2:
-            # facing down
-            pts = np.array(
-                [
-                    (x_offset, y_offset),
-                    (x_offset + agent_size, y_offset),
-                    (x_offset + agent_size // 2, y_offset + agent_size),
-                ]
-            )
-        elif agent_dir == 3:
             # facing left
             pts = np.array(
                 [
@@ -525,7 +513,7 @@ class GridEnv(Env):
                     (x_offset, y_offset + agent_size // 2),
                 ]
             )
-        elif agent_dir == 0:
+        elif (agent_dir == 0) or (agent_dir == 3):
             # facing up
             pts = np.array(
                 [
@@ -765,47 +753,18 @@ class GridEnv(Env):
         else:
             can_collect = True
 
-        if self.orientation_type == GridOrientation.variable:
-            # 0 - Counter-clockwise rotation
-            # 1 - Clockwise rotation
-            # 2 - Forward movement
-            # 3 - Stay (if flag use_noop == True)/ Collect (if flag manual_collect == True)
-            # 4 - Collect (if flag manual_collect == True)
-            if action == 0:
-                self.rotate(-1)
-            elif action == 1:
-                self.rotate(1)
-            elif action == 2:
-                move_array = self.direction_map[self.orientation]
-                self.move_agent(move_array)
-            elif action == 3:
-                if self.use_noop:
-                    pass
-                else:
-                    can_collect = True
-            elif action == 4:
-                can_collect = True
+        # 0 - STAY
+        # 1 - LEFT
+        # 2 - RIGHT
+        # 3 - COLLECT
+        
+        move_array = self.direction_map[action]
+        self.looking = action
 
-            self.looking = self.orientation
-        else:
-            # 0 - North
-            # 1 - East
-            # 2 - South
-            # 3 - West
-            # 4 - Stay (if flag use_noop == True) / Collect (if flag manual_collect == True)
-            # 5 - Collect (if flag manual_collect == True)
-            move_array = self.direction_map[action]
-            if action < 4:
-                self.looking = action
-            elif action == 4:
-                if self.use_noop:
-                    pass
-                else:
-                    can_collect = True
-            elif action == 5:
-                can_collect = True
+        if action == 3:
+            can_collect = True
 
-            self.move_agent(move_array)
+        self.move_agent(move_array)
 
         self.episode_time += 1
         reward = 0 if action == 4 else self.time_penalty
