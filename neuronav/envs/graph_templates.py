@@ -199,6 +199,8 @@ def hexxed_graph():
 	return objects, edges
 
 
+
+
 template_map = {
 	GraphTemplate.two_step          : two_step,
 	GraphTemplate.two_way_linear    : two_way_linear,
