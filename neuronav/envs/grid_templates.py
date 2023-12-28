@@ -340,7 +340,8 @@ def hexxed(grid_size):
 
     portals = {}
     for i in range(1,grid_size-1):
-        portal = {(i, 3): (i, 9),(i, 10): (i, 4)}
+        portal = {(i, 3): (i, 9),
+                  (i, 10): (i, 4)}
         portals.update(portal)
 
     rewards = {}

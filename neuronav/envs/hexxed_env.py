@@ -1,18 +1,20 @@
-from ast import Dict
-from gym import Env, spaces
-import numpy as np
-import neuronav.utils as utils
-import random
+import copy
 import enum
+import random
+from ast import Dict
+
+import cv2 as cv
+import matplotlib.pyplot as plt
+import numpy as np
+import torch
+from gym import Env, spaces
+
+import neuronav.utils as utils
 from neuronav.envs.grid_templates import (
     generate_layout,
     GridTemplate,
     GridSize,
 )
-import matplotlib.pyplot as plt
-import cv2 as cv
-import copy
-import torch
 
 
 class GridObservation(enum.Enum):
