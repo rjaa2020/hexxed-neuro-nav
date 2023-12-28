@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ceba809-0d5d-4e59-9316-6d2e8e09d95b" name="Changes" comment="">
+    <list default="true" id="8ceba809-0d5d-4e59-9316-6d2e8e09d95b" name="Changes" comment="pull quenderas hexxed changes">
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/hexxed-neuro-nav.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/hexxed-neuro-nav.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neuronav/envs/graph_templates.py" beforeDir="false" afterPath="$PROJECT_DIR$/neuronav/envs/graph_templates.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neuronav/envs/grid_templates.py" beforeDir="false" afterPath="$PROJECT_DIR$/neuronav/envs/grid_templates.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neuronav/envs/hexxed_env.py" beforeDir="false" afterPath="$PROJECT_DIR$/neuronav/envs/hexxed_env.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/ccn_tutorial.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/ccn_tutorial.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/graph_experiments_1.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/graph_experiments_1.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/hexxed.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/hexxed.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +16,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="MIXED" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -31,15 +28,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -51,5 +48,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="pull quenderas hexxed changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="pull quenderas hexxed changes" />
   </component>
 </project>
