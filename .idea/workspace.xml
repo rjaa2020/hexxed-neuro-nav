@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8ceba809-0d5d-4e59-9316-6d2e8e09d95b" name="Changes" comment="added hexxed graph environment">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/neuronav/envs/graph_templates.py" beforeDir="false" afterPath="$PROJECT_DIR$/neuronav/envs/graph_templates.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/notebooks/hexxed.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/hexxed.ipynb" afterDir="false" />
