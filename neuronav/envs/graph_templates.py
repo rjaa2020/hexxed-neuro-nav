@@ -147,7 +147,6 @@ def variable_magnitude():
 	objects = {"rewards": reward_locs}
 	return objects, edges
 
-
 def hexxed_graph():
 	edges = [[1, 2, 3, 4, 5, 6],
 	         [13, 8, 9],
