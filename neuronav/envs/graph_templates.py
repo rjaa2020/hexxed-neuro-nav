@@ -147,53 +147,90 @@ def variable_magnitude():
 	objects = {"rewards": reward_locs}
 	return objects, edges
 
-def hexxed_graph():
-	edges = [[1, 2, 3, 4, 5, 6],
-	         [13, 8, 9],
-	         [8, 9, 10],
-	         [9, 10, 11],
-	         [10, 11, 12],
-	         [11, 12, 13],
-	         [12, 13, 15, 7],
-	         [],
-	         [20, 15, 16],
-	         [15, 16, 17],
-	         [16, 17, 18],
-	         [17, 18, 19],
-	         [18, 19, 20],
-	         [19, 20, 22, 14],
-	         [],
-	         [27, 22, 23],
-	         [22, 23, 24],
-	         [23, 24, 25],
-	         [24, 25, 26],
-	         [25, 26, 27],
-	         [26, 27, 29, 21],
-	         [],
-	         [34, 29, 30],
-	         [29, 30, 31],
-	         [30, 31, 32],
-	         [31, 32, 33],
-	         [32, 33, 34],
-	         [33, 34, 36, 28],
-	         [],
-	         [41, 36, 37],
-	         [36, 37, 38],
-	         [37, 38, 39],
-	         [38, 39, 40],
-	         [39, 40, 41],
-	         [40, 41, 43, 35],
-	         [],
-	         [43],
-	         [43],
-	         [43],
-	         [43],
-	         [43],
-	         [43, 42],
-	         [],
-	         []]
+import numpy as np
 
-	reward_locs = {0: 0, 7: 1, 14: 4, 21: 9, 28: 16, 35: 25, 42: 36, 43: 0}
+class HexxedGraph:
+	def __init__(self, inner_layers=6, nodes_per_layer=7):
+		assert inner_layers > 0, "There must be at least 1 inner layer"
+		assert nodes_per_layer > 3, "There must be at least 4 nodes per layer"
+
+		self.inner_layers = inner_layers
+		self.nodes_per_layer = nodes_per_layer
+
+		self.graph = []
+
+		node_num = 0
+		for layer in range(inner_layers + 2):
+			if layer % (inner_layers + 1) == 0:
+				self.graph.append([node_num])
+				node_num += 1
+			else:
+				self.graph.append(list(range(node_num, node_num + nodes_per_layer)))
+				node_num += nodes_per_layer
+
+		self.flat_graph = []
+		for layer in self.graph:
+			self.flat_graph += layer
+
+		self.edges = {}
+		for n in self.flat_graph:
+			self.edges[n] = self.get_edges(n)
+
+		self.rewards = self.get_reward_locs()
+
+	def visualize(self):
+		max_width = max(len(str(item)) for row in self.graph for item in row) * (self.nodes_per_layer - 1) + (self.nodes_per_layer - 2) # 6 elements and 5 spaces
+
+		for layer in self.graph:
+			if len(layer) == 1:
+				print(f"{str(layer[0]):02}".rjust(max_width + 6))
+			else:
+				print(" ".join(f"{item:>{max_width // self.nodes_per_layer}}" for item in layer[:-1]) + f" |  {layer[-1]:02}    <==  Layer {layer[-1] // self.nodes_per_layer:02}")
+
+	def get_edges(self, n):
+		layer = (n // self.nodes_per_layer) + 1                # determine which layer node is in
+		pos = n % self.nodes_per_layer                         # determine where in layer node is
+
+
+		if n == 0:                                        # if starting state
+			edges = list(np.arange(1, self.nodes_per_layer))
+
+		elif pos == 0 or n == (self.nodes_per_layer * self.inner_layers) + 1:     # if one of the terminal states or last state
+			edges = []
+
+		elif layer == self.inner_layers:                       # if in the final layer
+			edges = [self.nodes_per_layer * self.inner_layers + 1]
+
+			if pos == (self.nodes_per_layer - 1):                # if last layer and last node in layer
+				edges = np.append(edges, (n+1))
+
+		else:
+			edges = np.array([pos - 1, pos, pos + 1]) + (layer * self.nodes_per_layer)
+
+			if pos == 1:                                    # if first node in layer
+				edges[0] += (self.nodes_per_layer - 1)
+			elif pos == (self.nodes_per_layer - 1):              # if last node in layer
+				edges[2] += 1
+				edges = np.append(edges, (n+1))
+
+		return list(edges)
+
+	def get_reward_locs(self):
+		self.reward_locs = {}
+
+		for n in self.flat_graph:
+			if n == self.flat_graph[-1]:
+				self.reward_locs[n] = 0
+			elif n % self.nodes_per_layer == 0:
+				self.reward_locs[n] = (n // self.nodes_per_layer)**2
+
+		return self.reward_locs
+
+def hexxed_graph():
+	g = HexxedGraph(inner_layers=1, nodes_per_layer=4)
+
+	edges = list(g.edges.values())
+	reward_locs = g.rewards
 	objects = {"rewards": reward_locs}
 
 	return objects, edges

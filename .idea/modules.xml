@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$USER_HOME$/Downloads/.idea/Downloads.iml" filepath="$USER_HOME$/Downloads/.idea/Downloads.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../ENGR208/ENGR208/.idea/ENGR208.iml" filepath="$PROJECT_DIR$/../../ENGR208/ENGR208/.idea/ENGR208.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/hexxed-neuro-nav.iml" filepath="$PROJECT_DIR$/.idea/hexxed-neuro-nav.iml" />
     </modules>
   </component>
