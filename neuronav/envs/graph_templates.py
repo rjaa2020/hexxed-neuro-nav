@@ -147,7 +147,6 @@ def variable_magnitude():
 	objects = {"rewards": reward_locs}
 	return objects, edges
 
-import numpy as np
 
 class HexxedGraph:
 	def __init__(self, inner_layers=6, nodes_per_layer=7):
@@ -157,77 +156,78 @@ class HexxedGraph:
 		self.inner_layers = inner_layers
 		self.nodes_per_layer = nodes_per_layer
 
-		self.graph = []
+		# Initialize graph layers
+		self.graph = [[0]] +\
+		             [list(range(1 + i * nodes_per_layer, 1 + (i + 1) * nodes_per_layer)) for i in
+		              range(inner_layers)] +\
+		             [[1 + inner_layers * nodes_per_layer]]
 
-		node_num = 0
-		for layer in range(inner_layers + 2):
-			if layer % (inner_layers + 1) == 0:
-				self.graph.append([node_num])
-				node_num += 1
-			else:
-				self.graph.append(list(range(node_num, node_num + nodes_per_layer)))
-				node_num += nodes_per_layer
+		# Flatten the graph
+		self.flat_graph = sum(self.graph, [])
 
-		self.flat_graph = []
-		for layer in self.graph:
-			self.flat_graph += layer
+		# Calculate edges for each node
+		self.edges = {n: self.get_edges(n) for n in self.flat_graph}
 
-		self.edges = {}
-		for n in self.flat_graph:
-			self.edges[n] = self.get_edges(n)
-
-		self.rewards = self.get_reward_locs()
+		# Calculate reward locations
+		self.rewards = {n: (n // self.nodes_per_layer) ** 2 for n in self.flat_graph if
+		                n % self.nodes_per_layer == 0 and n != self.flat_graph[-1]}
 
 	def visualize(self):
-		max_width = max(len(str(item)) for row in self.graph for item in row) * (self.nodes_per_layer - 1) + (self.nodes_per_layer - 2) # 6 elements and 5 spaces
+		"""
+		Function to visualize the graph
+		@return: None
+		"""
+		max_width = max(len(str(item)) for row in self.graph for item in row) * (self.nodes_per_layer - 1) + (
+				self.nodes_per_layer - 2)
 
+		# Iterate through each layer and print the nodes and layer number
 		for layer in self.graph:
 			if len(layer) == 1:
-				print(f"{str(layer[0]):02}".rjust(max_width + 6))
+				print(f"{layer[0]:02}".rjust(max_width + 6))
 			else:
-				print(" ".join(f"{item:>{max_width // self.nodes_per_layer}}" for item in layer[:-1]) + f" |  {layer[-1]:02}    <==  Layer {layer[-1] // self.nodes_per_layer:02}")
+				print(" ".join(f"{item:>{max_width // self.nodes_per_layer}}" for item in
+				               layer[:-1]) + f" |  {layer[-1]:02}    <--  Layer {layer[-1] // self.nodes_per_layer:02}")
 
 	def get_edges(self, n):
-		layer = (n // self.nodes_per_layer) + 1                # determine which layer node is in
-		pos = n % self.nodes_per_layer                         # determine where in layer node is
+		"""
+		Helper function that takes a node from the graph object and returns its out edges
 
+		@param n: the node number for which we want edges
+		@return: list of edges for the specified node
+		"""
+		layer = (n // self.nodes_per_layer) + 1
+		pos = n % self.nodes_per_layer
 
-		if n == 0:                                        # if starting state
-			edges = list(np.arange(1, self.nodes_per_layer))
+		if n == 0:
+			return list(range(1, self.nodes_per_layer))
 
-		elif pos == 0 or n == (self.nodes_per_layer * self.inner_layers) + 1:     # if one of the terminal states or last state
-			edges = []
+		if pos == 0 or n == (self.nodes_per_layer * self.inner_layers) + 1:
+			return []
 
-		elif layer == self.inner_layers:                       # if in the final layer
+		if layer == self.inner_layers:
 			edges = [self.nodes_per_layer * self.inner_layers + 1]
+			if pos == (self.nodes_per_layer - 1):
+				edges.append(n + 1)
+			return edges
 
-			if pos == (self.nodes_per_layer - 1):                # if last layer and last node in layer
-				edges = np.append(edges, (n+1))
+		edges = np.array([pos - 1, pos, pos + 1]) + (layer * self.nodes_per_layer)
+		if pos == 1:
+			edges[0] += (self.nodes_per_layer - 1)
+		elif pos == (self.nodes_per_layer - 1):
+			edges[2] -= (self.nodes_per_layer - 1)
+			edges = np.append(edges, n + 1)
 
-		else:
-			edges = np.array([pos - 1, pos, pos + 1]) + (layer * self.nodes_per_layer)
+		return edges.tolist()
 
-			if pos == 1:                                    # if first node in layer
-				edges[0] += (self.nodes_per_layer - 1)
-			elif pos == (self.nodes_per_layer - 1):              # if last node in layer
-				edges[2] += 1
-				edges = np.append(edges, (n+1))
-
-		return list(edges)
-
-	def get_reward_locs(self):
-		self.reward_locs = {}
-
-		for n in self.flat_graph:
-			if n == self.flat_graph[-1]:
-				self.reward_locs[n] = 0
-			elif n % self.nodes_per_layer == 0:
-				self.reward_locs[n] = (n // self.nodes_per_layer)**2
-
-		return self.reward_locs
 
 def hexxed_graph():
-	g = HexxedGraph(inner_layers=1, nodes_per_layer=4)
+	"""
+	An implementation of the hexxed game in a graph environment
+	@return:
+		objects: the list of reward locations
+		edges: an adjacency list representation of the graph edges
+	"""
+	g = HexxedGraph(inner_layers=6, nodes_per_layer=7)
 
 	edges = list(g.edges.values())
 	reward_locs = g.rewards

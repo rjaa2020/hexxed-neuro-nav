@@ -19,6 +19,7 @@ def run_episode(
     update_agent: bool = True,
     time_penalty: float = 0.0,
     collect_states: bool = False,
+    return_moves: bool = False,
 ):
     """
     Performs a single episode of actions with the policy
@@ -34,11 +35,31 @@ def run_episode(
     steps = 0
     episode_return = 0
     done = False
+    moves = [0]
+
     if collect_states:
         states = []
     while not done and steps < max_steps:
-        act = agent.sample_action(obs)
-        obs_new, reward, done, _ = env.step(act)
+        agent_pos = env.agent_pos
+        out_edges = env.edges[agent_pos]
+        invalid_move = True
+
+        # exits when there are no moves left, or it selects a valid move
+        while (len(out_edges) > 0) and invalid_move:
+            try:
+                act = agent.sample_action(obs)
+
+                # if it selects an invalid move, this line will throw an IndexError
+                obs_new, reward, done, _ = env.step(act)
+
+                invalid_move = False
+            except IndexError:
+                continue
+
+        # print(f"\t{agent_pos=:02}\t|\t{out_edges=}")
+
+        moves.append(out_edges[act])
+
         if update_agent:
             _ = agent.update([obs, act, obs_new, reward, done])
         if collect_states:
@@ -46,6 +67,15 @@ def run_episode(
         obs = obs_new
         steps += 1
         episode_return += reward
+
+    print(f"\t{agent_pos=:02}\t|\tfinal_state={out_edges[act]}\t|\treward={episode_return:0}")
+
+    if return_moves:
+        if collect_states:
+            return agent, steps, episode_return, states, moves
+        else:
+            return agent, steps, episode_return, moves
+
     if collect_states:
         return agent, steps, episode_return, states
     else:

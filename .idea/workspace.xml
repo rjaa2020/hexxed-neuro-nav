@@ -5,14 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8ceba809-0d5d-4e59-9316-6d2e8e09d95b" name="Changes" comment="added hexxed graph environment">
-      <change afterPath="$PROJECT_DIR$/notebooks/hexxed_graph.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notebooks/figures/DynaQ_100_v2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notebooks/figures/SARSA_100_v2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notebooks/figures/TDQ_100_v2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notebooks/figures/dynaq_100.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notebooks/figures/fig1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notebooks/figures/hexxed_edges.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notebooks/figures/hexxed_gameboard.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notebooks/figures/output.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notebooks/figures/sarsa_100.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notebooks/figures/tdq_100.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/hexxed-neuro-nav.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/hexxed-neuro-nav.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/neuronav/envs/graph_templates.py" beforeDir="false" afterPath="$PROJECT_DIR$/neuronav/envs/graph_templates.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/graph_experiments_2.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/graph_experiments_2.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/usage_tutorial.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/usage_tutorial.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neuronav/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/neuronav/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/graph_experiments_1.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/graph_experiments_1.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/hexxed.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/hexxed.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/hexxed_graph.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/hexxed_graph.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +38,9 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2a5Y0gMx7Cv6YSgVCxfScVy8rdJ" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="foldersAlwaysOnTop" value="false" />
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -34,12 +48,13 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/rahul/Documents/Hexxed/hexxed-neuro-nav/notebooks",
+    "last_opened_file_path": "C:/Users/rahul/Documents/Hexxed/hexxed-neuro-nav/notebooks/figures",
     "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
@@ -61,6 +76,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="added hexxed graph environment" />
     <option name="LAST_COMMIT_MESSAGE" value="added hexxed graph environment" />
   </component>
