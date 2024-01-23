@@ -68,18 +68,28 @@ def run_episode(
         steps += 1
         episode_return += reward
 
-    print(f"\t{agent_pos=:02}\t|\tfinal_state={out_edges[act]}\t|\treward={episode_return:0}")
+    # print(f"\t{agent_pos=:02}\t|\tfinal_state={out_edges[act]}\t|\treward={episode_return:0}")
 
-    if return_moves:
-        if collect_states:
-            return agent, steps, episode_return, states, moves
-        else:
-            return agent, steps, episode_return, moves
+    # if return_moves:
+    #     if collect_states:
+    #         return agent, steps, episode_return, states, moves
+    #     else:
+    #         return agent, steps, episode_return, moves
+    #
+    # if collect_states:
+    #     return agent, steps, episode_return, states
+    # else:
+    #     return agent, steps, episode_return
+
+    return_tuple = (agent, steps, episode_return)
 
     if collect_states:
-        return agent, steps, episode_return, states
-    else:
-        return agent, steps, episode_return
+        return_tuple += (states,)
+    if return_moves:
+        return_tuple += (moves,)
+
+    return return_tuple
+
 
 
 def onehot(value: int, max_value: int):

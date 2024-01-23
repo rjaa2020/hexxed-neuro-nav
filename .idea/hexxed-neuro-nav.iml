@@ -5,6 +5,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Downloads" />
+    <orderEntry type="module" module-name="Python Projects" />
   </component>
   <component name="PyDocumentationSettings">
     <option name="format" value="EPYTEXT" />
