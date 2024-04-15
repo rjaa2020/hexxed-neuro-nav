@@ -1,7 +1,8 @@
 import numpy as np
 import numpy.random as npr
 import neuronav.utils as utils
-from neuronav.agents.td_agents import QAgent, DynaModule
+from neuronav.agents.td_agents import QAgent
+from neuronav.agents.dyna_agents import DynaModule
 
 class HybridAgent(QAgent):
     def __init__(
