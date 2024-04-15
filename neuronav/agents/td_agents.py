@@ -369,7 +369,9 @@ class SARSA(QAgent):
         **kwargs
     ):
         super().__init__(
-            state_size, action_size, lr, gamma, poltype, beta, epsilon, Q_init, **kwargs
+            state_size, action_size, lr, 
+            gamma, poltype, beta, epsilon,
+            Q_init, **kwargs
         )
 
         if Q_init is None:
