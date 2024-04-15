@@ -17,6 +17,7 @@ class HybridAgent(QAgent):
         sarsa_lambda: float = 0.9,
         dyna_num_recall: int = 3,
         dyna_recency: str = "exponential",
+        Q_init=None,
         **kwargs
     ):
         super().__init__(
@@ -32,6 +33,13 @@ class HybridAgent(QAgent):
         self.sarsa_lambda = sarsa_lambda
         self.dyna = DynaModule(state_size, num_recall=dyna_num_recall, recency=dyna_recency)
         self.eligibility_trace = np.zeros((action_size, state_size))
+        
+        if Q_init is None:
+            self.Q = np.zeros((action_size, state_size))
+        elif np.isscalar(Q_init):
+            self.Q = Q_init * npr.randn(action_size, state_size)
+        else:
+            self.Q = Q_init
 
     def q_estimate(self, state):
         return self.Q[:, state]
